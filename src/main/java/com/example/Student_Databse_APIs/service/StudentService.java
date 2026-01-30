@@ -3,6 +3,8 @@ package com.example.Student_Databse_APIs.service;
 import com.example.Student_Databse_APIs.entity.Student;
 import com.example.Student_Databse_APIs.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +22,8 @@ public class StudentService {
     }
 
     // Get all student
-    public List<Student> getAllStudents(){
-        return repository.findAll();
+    public Page<Student> getAllStudents(Pageable pageable){
+        return repository.findAll(pageable);
     }
 
     // Get student by Id

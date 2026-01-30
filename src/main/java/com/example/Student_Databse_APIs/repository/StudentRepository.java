@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,4 +16,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     // Find student by address with JPQL (Java Persist Query Language)
     @Query("SELECT s FROM Student s WHERE s.address LIKE %:keyword%")
     Optional<Student> findStudentByAddress(String keyword);
+
+//    List<Student> findAll(Pageable pageable);
 }

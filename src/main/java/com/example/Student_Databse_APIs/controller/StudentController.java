@@ -3,7 +3,9 @@ package com.example.Student_Databse_APIs.controller;
 import com.example.Student_Databse_APIs.entity.Student;
 import com.example.Student_Databse_APIs.service.StudentService;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +26,9 @@ public class StudentController {
 
     // Get all students
     @GetMapping
-    public ResponseEntity<List<Student>> getAllStudents(){
-        return ResponseEntity.ok(studentService.getAllStudents());
+    public ResponseEntity<Page<Student>> getAllStudents(@RequestParam Integer pageNumber, @RequestParam Integer pageSize){
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return ResponseEntity.ok(studentService.getAllStudents(pageable));
     }
 
     // Get student by id
