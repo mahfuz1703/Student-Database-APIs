@@ -2,6 +2,7 @@ package com.example.Student_Databse_APIs.controller;
 
 import com.example.Student_Databse_APIs.entity.Student;
 import com.example.Student_Databse_APIs.service.StudentService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,6 +35,9 @@ public class StudentController {
     // Get student by id
     @GetMapping("/{id}")
     public ResponseEntity<Student> getStudentById(@PathVariable Long id){
+        if(studentService.getStudentById(id) == null){
+            throw new EntityNotFoundException("Student not found for id - " + id);
+        }
         return ResponseEntity.ok(studentService.getStudentById(id));
     }
 

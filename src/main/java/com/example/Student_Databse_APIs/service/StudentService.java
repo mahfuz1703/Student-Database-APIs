@@ -2,6 +2,7 @@ package com.example.Student_Databse_APIs.service;
 
 import com.example.Student_Databse_APIs.entity.Student;
 import com.example.Student_Databse_APIs.repository.StudentRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +30,7 @@ public class StudentService {
     // Get student by Id
     public Student getStudentById(Long id){
         return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Student not found for this id"));
+                .orElseThrow(() -> new EntityNotFoundException("Student not found for this id"));
     }
 
     // Update student by id
@@ -50,12 +51,12 @@ public class StudentService {
     // Find student by classRoll
     public Student findByClassRoll(String classRoll){
         return repository.findByClassRoll(classRoll)
-                .orElseThrow(() -> new RuntimeException("Student not found"));
+                .orElseThrow(() -> new RuntimeException("Student not found for - " + classRoll));
     }
 
     // Find student by address
     public Student findStudentByAddress(String address){
         return repository.findStudentByAddress(address)
-                .orElseThrow(() -> new RuntimeException("Student not found"));
+                .orElseThrow(() -> new RuntimeException("Student not found for - " + address));
     }
 }
