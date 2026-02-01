@@ -4,6 +4,7 @@ import com.example.Student_Databse_APIs.entity.Student;
 import com.example.Student_Databse_APIs.service.StudentService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -11,8 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
+@Slf4j
 @Controller
 @RequestMapping("/api/students")
 @RequiredArgsConstructor
@@ -22,6 +22,7 @@ public class StudentController {
     // Add student
     @PostMapping
     public ResponseEntity<Student> addStudent(@RequestBody Student student){
+        log.info("Received request to add student: {}", student);
         return ResponseEntity.ok(studentService.addStudent(student));
     }
 
@@ -29,6 +30,7 @@ public class StudentController {
     @GetMapping
     public ResponseEntity<Page<Student>> getAllStudents(@RequestParam Integer pageNumber, @RequestParam Integer pageSize){
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        log.info("Received request to get all students with pageNumber: {} and pageSize: {}", pageNumber, pageSize);
         return ResponseEntity.ok(studentService.getAllStudents(pageable));
     }
 
