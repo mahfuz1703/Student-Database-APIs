@@ -1,8 +1,11 @@
 package com.example.Student_Databse_APIs.controller;
 
+import com.example.Student_Databse_APIs.UserLoginDTO;
 import com.example.Student_Databse_APIs.entity.Student;
+import com.example.Student_Databse_APIs.response.ApiResponse;
 import com.example.Student_Databse_APIs.service.StudentService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -21,9 +24,17 @@ public class StudentController {
 
     // Add student
     @PostMapping
-    public ResponseEntity<Student> addStudent(@RequestBody Student student){
+    public ResponseEntity<ApiResponse<Student>> addStudent(@RequestBody @Valid Student student){
+
         log.info("Received request to add student: {}", student);
         return ResponseEntity.ok(studentService.addStudent(student));
+    }
+
+    // Login user
+    @PostMapping("/login")
+    public ResponseEntity<UserLoginDTO> loginUser(@RequestBody UserLoginDTO userLoginDTO){
+        log.info("Received login request for email: {}", userLoginDTO.getEmail());
+       return ResponseEntity.ok(studentService.login(userLoginDTO));
     }
 
     // Get all students

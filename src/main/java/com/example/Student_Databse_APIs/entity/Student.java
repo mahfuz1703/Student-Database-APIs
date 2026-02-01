@@ -3,6 +3,9 @@ package com.example.Student_Databse_APIs.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +19,20 @@ public class Student {
     @GeneratedValue // This annotation provides for the specification of generation strategies for the values of primary keys
     private Long id;
 
+    @NotNull(message = "Name cannot be null")
     private String name;
+
+
     private String address;
+
+    @NotNull(message = "Class Roll cannot be null")
     private String classRoll;
+
+    @NotNull(message = "Phone Number cannot be null")
+//    @Pattern(regexp = "^\\+880\\d{10}$\n", message = "Phone number must be start with +880 and contain 10 digits")
+    private String phoneNumber;
+
+//    @Email(message = "Email should be valid")
+    @NotNull(message = "Email cannot be null")
+    private String email;
 }
